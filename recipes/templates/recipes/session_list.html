@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block title %}Sessions{% endblock %}
+
+{% block content %}
+    <h1 class='recipe-list-header'>Sessions Page</h1>
+    <a href="{% url 'recipes:new_session' recipe_pk=recipe.id %}" class="button">Start a new Session</a>
+    
+    <h2>{{ recipe.name }}</h2>
+    <ul>
+        {% for session in sessions %}
+            <li>
+                <p>{{ session.created_at|date:'M d Y H:i' }}, {{ session.memo }}</p>
+                <p><a href="{% url 'recipes:session_detail' recipe_pk=recipe.id session_pk=session.id %}">Edit</a></p>
+            </li>
+            {% empty %}
+            <p>There are no sessions for this recipe. Get brewing!</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

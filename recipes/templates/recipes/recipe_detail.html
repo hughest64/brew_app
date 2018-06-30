@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ recipe.recipe_name }}{% endblock %}
+
+{% block content %}
+
+    <section>
+        <h1 class='recipe-list-header'>{{ recipe.recipe_name }}</h1>
+        <div>
+            <a href="{% url 'recipes:sessions' recipe_pk=recipe.id %}" class='button'>Sessions</a>
+            <a href="{% url 'recipes:new_session' recipe_pk=recipe.id %}" class='button'>New Session</a>
+        </div>
+        <h3>Mash Steps</h3>
+        {% for step in recipe.mashstep_set.all %}
+            <p>{{ step.name }}, {{ step.temp }}&deg;, {{ step.time }} min</p>
+        {% endfor %}
+        <h3>Hops</h3>
+        {% for hop in recipe.hop_set.all %}
+            <p>{{ hop.name }}, {{ hop.use }}, {{ hop.amount }} oz, {{ hop.time }} min</p>
+        {% endfor %}
+        <h3>Fermentables</h3>
+        {% for fermentable in recipe.fermentable_set.all %}
+            <p>{{ fermentable.name }}, {{ fermentable.type_of }}, {{ fermentable.amount }}</p>
+        {% endfor %}
+        <h3>Other</h3>
+        {% for miscellaneous in recipe.miscellaneous_set.all %}
+            <p>{{ miscellaneous.name }}, {{ miscellaneous.type_of }}, {{ miscellaneous.use }}, {{ miscellaneous.amount }}, {{ miscellaneous.time }}</p>
+        {% endfor %}
+        <h3>Yeast</h3>
+        {% for yeast in recipe.yeast_set.all %}
+            <p>{{ yeast.lab }} {{ yeast.product_id }} {{ yeast.name }}, {{ yeast.type_of }}, {{ yeast.amount }}</p>
+        {% endfor %}
+    </section>
+    <section>
+    </section>
+{% endblock %}

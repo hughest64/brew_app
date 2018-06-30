@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block title %}Timer{% endblock %}
+
+{% block content %}
+    <h2>Session Timer Page</h2>
+    <br>
+    <h2>{{ recipe.name }}</h2>
+    {{ session.memo }}
+    <a href="{% url 'recipes:session_detail' recipe_pk=recipe.id session_pk=session.id %}">Detail</a>
+{% endblock %}

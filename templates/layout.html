@@ -1,0 +1,61 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}Brew App{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto:700|Josefin+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/layout.css' %}">
+    </head>
+    <body>
+        <nav class='main-nav'>
+            <div class='main-nav-bar'>
+                <span class='main-nav-button' id='main-nav-button' onclick='toggleDropdown()'>Menu</span>
+            </div>
+            <div class='main-nav-content' id='main-nav-content'>
+                <ul>
+                    <li><a {% if request.path == '/' %}id='active-page'{% endif %}
+                        href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li><a {% if '/recipes/' in request.path %}id='active-page'{% endif %}
+                        href="{% url 'recipes:recipe_list' %}" >Recipes</a>
+                    </li>
+                    <li><a {% if '/timer/' in request.path %}id='active-page'{% endif %}
+                        href="{% url 'timer:main' %}">Timer</a>
+                    </li>
+                    <li><a {% if '/calculators/' in request.path %}id='active-page'{% endif %}
+                        href="{% url 'calculators:main' %}">Calculators</a>
+                    </li>
+                    <li><a {% if '/tap/' in request.path %}id='active-page'{% endif %}
+                         href="">On Tap!</a>
+                </ul>
+            </div>
+            <div class='user-info'>
+                {% if user.is_authenticated %}
+                <span><a href="#">Welcome, {{ user.first_name }}</a>
+                </span>
+                <span>
+                    <a href="{% url 'logout' %}">Logout</a>
+                </span>
+                {% else %}
+                <span><a href="{% url 'login' %}">Log In</a></span>
+                {% endif %}
+            </div>
+        </nav>
+        {% if messages %}
+            {% for message in messages %}
+                <h1>{{ message }}</h1>
+            {% endfor %}
+        {% endif %}
+        <header class="header-content">{% block header %}{% endblock %}</header>
+
+        <main class="main-content">{% block content %}{% endblock %}</main>
+
+        <script src="{% static 'js/main.js' %}"></script>
+
+    </body>
+</html>
