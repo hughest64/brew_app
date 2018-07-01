@@ -1,5 +1,13 @@
 var dropContent = document.getElementById('main-nav-content');
 
+function toggleDropdown() {
+if (dropContent.style.display != 'inline-block') {
+    dropContent.style.display = 'inline-block';
+    } else {
+    dropContent.style.display = 'none';
+    }
+};
+
 // Click event to open and close the main nav menu on mobile
 window.onclick = function(e) {
 if (!e.target.matches('.main-nav-button')) {
