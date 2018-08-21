@@ -109,12 +109,61 @@ class Yeast(Ingredient):
     def __str__(self):
         return self.name
 
-
+# add a model form for this moddel to forms.py
 class Session(models.Model):
     """ An individual brew session for a given recipe. """
     created_at = models.DateTimeField(auto_now_add=True)
-    memo = models.TextField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    memo = models.TextField()
+
+    NOT_STARTED = 'NS'
+    BREWING = 'BB'
+    FERMENTING = 'BF'
+    COMPLETED = 'BC'
+    STATUS_CHOICES = (
+        (NOT_STARTED, 'not started'),
+        (BREWING, 'brewing'),
+        (FERMENTING, 'fermenting'),
+        (COMPLETED, 'completed')
+    )
+    status = models.CharField(
+        max_length = 2,
+        choices = STATUS_CHOICES,
+        default = NOT_STARTED,
+    )
+
+    pre_boil_grav = models.DecimalField(
+        max_digits=5, decimal_places=3, default=0.000
+    )
+    post_boil_grav = models.DecimalField(
+        max_digits=5, decimal_places=3, default=0.000
+    )
+    specific_boil_grav = models.DecimalField(
+        max_digits=5, decimal_places=3, default=0.000
+    )
+    pre_boil_vol = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00
+    )
+    post_boil_vol = models.DecimalField(
+        max_digits=5, decimal_places=2, default=0.00
+    )
+    fermentation_temp = models.DecimalField(
+        max_digits=4, decimal_places=1, default=0.0
+    )
+
 
     def __str__(self):
         return self.memo
+
+
+
+
+
+
+
+
+
+
+
+
+######### end of file ############
