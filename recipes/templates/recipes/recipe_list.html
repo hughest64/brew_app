@@ -8,9 +8,9 @@
 
 {% block content %}
     <section class='recipe-list-view'>
-        {% csrf_token %}
         {% if user.is_authenticated %}
         <form enctype="multipart/form-data" method="post" action="">
+            {% csrf_token %}
             <div class=''>
                 <input class='input-file button' type="file" name="file" id="id_file" >
                 <label class='button' for="id_file">Add A Recipe</label>
