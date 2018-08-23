@@ -5,7 +5,7 @@
 {% block content %}
     <h1 class='recipe-list-header'>Sessions Page</h1>
     <a href="{% url 'recipes:new_session' recipe_pk=recipe.id %}" class="button">Start a new Session</a>
-    
+
     <h2>{{ recipe.name }}</h2>
     <ul>
         {% for session in sessions %}

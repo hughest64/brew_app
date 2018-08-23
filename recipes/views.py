@@ -41,14 +41,16 @@ def recipe_sessions(request, recipe_pk):
 
 
 def new_session(request, recipe_pk):
-    """ The start of a new brew session. Redirects to session_timer. """
+    """ The start of a new brew session. Redirects to recipe_sessions. """
     recipe = models.Recipe.objects.get(id=recipe_pk)
-    form = forms.SessionForm()
-    # if request.method == 'POST':
-    #     print('I guess the request method was post')
-    # what is the mehod for redirecting? reverse?
-    return render(request, 'recipes/new_session.html', {'recipe': recipe,
-                                                        'form':form})
+    form = forms.SessionForm(initial={'recipe':recipe_pk})
+    session = models.Session(recipe=recipe)
+    session.save()
+    # form.status='NS'
+    # form.recipe=recipe_pk
+    print(form)
+
+    return HttpResponseRedirect(reverse('recipes:sessions', args=[recipe.id]))
 
 
 def session_context(recipe_pk, session_pk):

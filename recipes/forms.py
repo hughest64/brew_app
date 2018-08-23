@@ -10,4 +10,4 @@ class UploadXMLFileForm(forms.Form):
 class SessionForm(forms.ModelForm):
     class Meta:
         model = models.Session
-        fields = '__all__'
+        fields = ['status', 'recipe']
