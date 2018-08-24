@@ -114,7 +114,7 @@ class Session(models.Model):
     """ An individual brew session for a given recipe. """
     created_at = models.DateTimeField(auto_now_add=True)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    memo = models.TextField()
+    memo = models.TextField(blank=True)
 
     NOT_STARTED = 'NS'
     BREWING = 'BB'
@@ -133,22 +133,22 @@ class Session(models.Model):
     )
 
     pre_boil_grav = models.DecimalField(
-        max_digits=5, decimal_places=3, default=0.000
+        max_digits=5, decimal_places=3, blank=True, null=True
     )
     post_boil_grav = models.DecimalField(
-        max_digits=5, decimal_places=3, default=0.000
+        max_digits=5, decimal_places=3, blank=True, null=True
     )
-    specific_boil_grav = models.DecimalField(
-        max_digits=5, decimal_places=3, default=0.000
+    specific_grav = models.DecimalField(
+        max_digits=5, decimal_places=3, blank=True, null=True
     )
     pre_boil_vol = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00
+        max_digits=5, decimal_places=2, blank=True, null=True
     )
     post_boil_vol = models.DecimalField(
-        max_digits=5, decimal_places=2, default=0.00
+        max_digits=5, decimal_places=2, blank=True, null=True
     )
     fermentation_temp = models.DecimalField(
-        max_digits=4, decimal_places=1, default=0.0
+        max_digits=4, decimal_places=1, blank=True, null=True
     )
 
 

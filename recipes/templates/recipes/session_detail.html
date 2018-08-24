@@ -3,6 +3,27 @@
 {% block title %}Session{% endblock %}
 
 {% block content %}
-    <h2>Indivdual Session Detail Page</h2>
+    <h2>{{ recipe.recipe_name }} Session</h2>
+    <h4>{{ session.get_status_display }}</h4>
+    <!-- {{ form }} -->
+    <form action="">
+        <p>
+            <label for="id_pre_boil_vol">Pre boil vol:</label>
+            <input type="number" name="pre_boil_vol" value="0.0" step="0.01" required id="id_pre_boil_vol" />
+        </p>
+        <p>
+            <label for="id_post_boil_vol">Post boil vol:</label>
+            <input type="number" name="post_boil_vol" value="0.0" step="0.01" required id="id_post_boil_vol" />
+        </p>
+        <p>
+            <label for="id_pre_boil_grav">Pre boil grav:</label>
+            <input type="number" name="pre_boil_grav" value="0.0" step="0.001" required id="id_pre_boil_grav" />
+        </p>
+        <p>
+            <label for="id_post_boil_grav">Post boil grav:</label>
+            <input type="number" name="post_boil_grav" value="0.0" step="0.001" required id="id_post_boil_grav" />
+        </p>
+    </form>
+
     <a href="{% url 'recipes:session_timer' recipe_pk=recipe.id session_pk=session.id %}">Timer</a>
 {% endblock %}

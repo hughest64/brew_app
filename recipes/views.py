@@ -36,19 +36,15 @@ def recipe_sessions(request, recipe_pk):
     """ A list of all sessions for a given recipe. """
     recipe = get_object_or_404(models.Recipe, id=recipe_pk)
     sessions = recipe.session_set.order_by('created_at')
-    context = {'recipe': recipe, 'sessions': sessions}
+    context = {'recipe': recipe, 'sessions': sessions,}
     return render(request, 'recipes/session_list.html', context)
 
 
 def new_session(request, recipe_pk):
     """ The start of a new brew session. Redirects to recipe_sessions. """
     recipe = models.Recipe.objects.get(id=recipe_pk)
-    form = forms.SessionForm(initial={'recipe':recipe_pk})
     session = models.Session(recipe=recipe)
     session.save()
-    # form.status='NS'
-    # form.recipe=recipe_pk
-    print(form)
 
     return HttpResponseRedirect(reverse('recipes:sessions', args=[recipe.id]))
 
@@ -59,12 +55,16 @@ def session_context(recipe_pk, session_pk):
         models.Session, recipe_id=recipe_pk, id=session_pk
     )
     recipe = models.Recipe.objects.get(id=recipe_pk)
-    context = {'session': session, 'recipe': recipe}
+    form = forms.BrewSessionForm()
+    context = {'session': session, 'recipe': recipe, 'form':form}
     return context
 
 
 def session_detail(request, recipe_pk, session_pk):
     """ Details of a given brew session. """
+    # form = forms.BrewSessionForm()
+    # recipe = models.Recipe.get(pk=recipe_pk)
+    # session = models.Session.get(pk=session_pk)
     context = session_context( recipe_pk, session_pk)
     return render(request, 'recipes/session_detail.html', context)
 
