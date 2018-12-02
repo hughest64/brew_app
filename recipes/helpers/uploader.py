@@ -23,8 +23,8 @@ def upload_file(request):
                 + "Please choose a different file."
             )
         else:
-            recipe_data = recipe_file.get_all_data()
-            recipe = create_recipe(request, recipe_data)
+            recipe_data = recipe_file.get_all_data() 
+            create_recipe(request, recipe_data)
             return HttpResponseRedirect(reverse('recipes:recipe_list'))
 
 
